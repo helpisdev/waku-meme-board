@@ -1,0 +1,49 @@
+---
+import { default as Meta, MetaProps } from "@components/Head/Meta/Meta.astro";
+import {
+  default as Facebook,
+  OpenGraphProps,
+} from "@components/Head/Facebook/Facebook.astro";
+import {
+  default as Twitter,
+  TwitterProps,
+} from "@components/Head/Twitter/Twitter.astro";
+
+export interface HeadProps {
+  meta?: MetaProps | undefined;
+  facebook?: OpenGraphProps | undefined;
+  twitter?: TwitterProps | undefined;
+}
+
+const { meta, facebook, twitter } = Astro.props as HeadProps;
+---
+
+<head>
+  <Meta
+    title={meta?.title}
+    description={meta?.description}
+    keywords={meta?.keywords}
+    icon={meta?.icon}
+    alternateIcon={meta?.alternateIcon}
+    themeColor={meta?.themeColor}
+    themeColorDark={meta?.themeColorDark}
+    colorScheme={meta?.colorScheme}
+  />
+  <Facebook
+    title={facebook?.title}
+    type={facebook?.type}
+    url={facebook?.url}
+    locale={facebook?.locale}
+    image={facebook?.image}
+    imageAlt={facebook?.imageAlt}
+    description={facebook?.description}
+    siteName={facebook?.siteName}
+  />
+  <Twitter
+    title={twitter?.title}
+    description={twitter?.description}
+    image={twitter?.image}
+    site={twitter?.site}
+    card={twitter?.card}
+  />
+</head>

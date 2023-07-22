@@ -1,0 +1,30 @@
+---
+import type { ObjectType } from "../../../types";
+
+export interface OpenGraphProps {
+  title?: string | undefined;
+  type?: ObjectType | undefined;
+  url?: string | undefined;
+  locale?: string | undefined;
+  image?: string | undefined;
+  imageAlt?: string | undefined;
+  description?: string | undefined;
+  siteName?: string | undefined;
+}
+
+const { title, type, url, locale, image, imageAlt, description, siteName } =
+  Astro.props as OpenGraphProps;
+---
+
+{title && <meta property="og:title" content={title} />}
+{type && <meta property="og:type" content={type} />}
+{url && <meta property="og:url" content={url} />}
+{locale && <meta property="og:locale" content={locale} />}
+{image && <meta property="og:image" content={image} />}
+{imageAlt && <meta property="og:image:alt" content={imageAlt} />}
+{
+  description && (
+    <meta name="description" property="og:description" content={description} />
+  )
+}
+{siteName && <meta property="og:site_name" content={siteName} />}

@@ -1,0 +1,18 @@
+---
+import { MemeGallery } from "@components/MemeGallery/MemeGallery";
+import { IPFS } from "@components/IPFS/IPFS";
+import { Waku } from "@components/Waku/Waku";
+import { default as DecentralizedNet } from "@components/DecentralizedNet/DecentralizedNet.astro";
+---
+
+<DecentralizedNet>
+  <div class="columns-2 mb-20">
+    <div class="mx-auto">
+      <IPFS client:only />
+    </div>
+    <div class="mx-auto">
+      <Waku client:only />
+    </div>
+  </div>
+</DecentralizedNet>
+<MemeGallery client:only />

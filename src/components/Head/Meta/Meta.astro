@@ -1,0 +1,70 @@
+---
+export type ThemeType = "light" | "dark";
+
+type MediaTheme = `(prefers-color-scheme: ${ThemeType})` | "all";
+
+export type ColorScheme = ThemeType | "normal" | "only light";
+
+export interface MetaProps {
+  title: string;
+  description?: string | undefined;
+  keywords?: string[] | undefined;
+  icon?: string | undefined;
+  alternateIcon?: string | undefined;
+  themeColor?: string | undefined;
+  themeColorDark?: string | undefined;
+  colorScheme?: ColorScheme | undefined;
+}
+
+function getPreferredTheme(scheme: ThemeType): MediaTheme {
+  if (!(themeColor && themeColorDark)) {
+    return "all";
+  }
+  return `(prefers-color-scheme: ${scheme})`;
+}
+
+const {
+  title,
+  description,
+  keywords,
+  icon,
+  alternateIcon,
+  themeColor,
+  themeColorDark,
+  colorScheme = "normal",
+} = Astro.props as MetaProps;
+---
+
+<meta charset="utf-8" />
+<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+{title && <title>{title}</title>}
+<meta name="generator" content={Astro.generator} />
+<link rel="sitemap" href="/sitemap-index.xml" />
+{description && <meta name="description" content={description} />}
+{keywords && <meta name="keywords" content={keywords.join(", ")} />}
+{icon && <link rel="icon" type="image/svg+xml" href={icon} />}
+{
+  alternateIcon && (
+    <link rel="alternate icon" type="image/x-icon" href={alternateIcon} />
+  )
+}
+{colorScheme && <meta name="color-scheme" content={colorScheme} />}
+{
+  themeColor && (
+    <meta
+      name="theme-color"
+      content={themeColor}
+      media={getPreferredTheme("light")}
+    />
+  )
+}
+{
+  themeColorDark && (
+    <meta
+      name="theme-color"
+      content={themeColorDark}
+      media={getPreferredTheme("dark")}
+    />
+  )
+}

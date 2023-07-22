@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://waku-meme-board.helpis.dev/sitemap-index.xml

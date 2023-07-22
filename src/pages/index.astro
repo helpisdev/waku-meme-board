@@ -1,15 +1,59 @@
 ---
+import { default as Container } from "@layouts/Container/Container.astro";
+import { conf } from "../util";
+import type { OpenGraphProps } from "@components/Head/Facebook/Facebook.astro";
+import type { TwitterProps } from "@components/Head/Twitter/Twitter.astro";
+import type { MetaProps } from "@components/Head/Meta/Meta.astro";
+import { default as WakuApp } from "@components/WakuApp/WakuApp.astro";
+import type { CardType, ObjectType } from "../types";
+
+const title: string = "Decentralized Meme Experience";
+const og: OpenGraphProps = {
+  title: title,
+  type: conf.facebook.type as ObjectType,
+  url: conf.baseURL,
+  locale: "en",
+  image: conf.image.url,
+  imageAlt: conf.image.alt,
+  description: conf.description,
+  siteName: conf.siteName,
+};
+const twitter: TwitterProps = {
+  title: title,
+  description: conf.description,
+  image: conf.image.url,
+  imageAlt: conf.image.alt,
+  card: conf.twitter.card as CardType,
+  site: conf.siteName,
+};
+const meta: MetaProps = {
+  title: title,
+  description: conf.description,
+  keywords: ["meme", "waku", "dank", "decentralized", "privacy"],
+  // icon: ,
+  // alternateIcon: ,
+  themeColor: conf.theme.light,
+  themeColorDark: conf.theme.dark,
+};
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Container
+  title={conf.siteName}
+  headData={{
+    facebook: og,
+    twitter: twitter,
+    meta: meta,
+  }}
+>
+  <WakuApp />
+</Container>
+<script>
+  import { toggleTheme } from "@stores/theme";
+  const darkModePreference = window.matchMedia("(prefers-color-scheme: dark)");
+  const preferredTheme = darkModePreference.matches ? "dark" : "light";
+  toggleTheme(preferredTheme);
+
+  darkModePreference.addEventListener("change", (e) =>
+    toggleTheme(e.matches ? "dark" : "light"),
+  );
+</script>

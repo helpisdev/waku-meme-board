@@ -1,0 +1,19 @@
+---
+import { default as Header } from "@components/Body/Header/Header.astro";
+import { default as Main } from "@components/Body/Main/Main.astro";
+import { default as Footer } from "@components/Body/Footer/Footer.astro";
+
+interface BodyProps {
+  title: string;
+}
+
+const { title } = Astro.props as BodyProps;
+---
+
+<body class="bg-app dark:bg-app-dark">
+  <Header title={title} />
+  <Main>
+    <slot />
+  </Main>
+  <Footer />
+</body>

@@ -1,0 +1,22 @@
+---
+import type { CardType } from "../../../types";
+
+export interface TwitterProps {
+  title?: string | undefined;
+  description?: string | undefined;
+  image?: string | undefined;
+  imageAlt?: string | undefined;
+  card?: CardType | undefined;
+  site?: string | undefined;
+}
+
+const { card, site, title, description, image, imageAlt } =
+  Astro.props as TwitterProps;
+---
+
+{card && <meta name="twitter:card" content={card} />}
+{site && <meta name="twitter:site" content={site} />}
+{title && <meta name="twitter:title" content={title} />}
+{description && <meta name="twitter:description" content={description} />}
+{image && <meta name="twitter:image" content={image} />}
+{imageAlt && <meta name="twitter:image:alt" content={imageAlt} />}

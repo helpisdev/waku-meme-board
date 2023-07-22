@@ -1,0 +1,26 @@
+---
+import { default as Nav } from "@components/Body/Header/Nav/Nav.astro";
+import { conf } from "../../../util";
+interface HeaderProps {
+  title: string;
+}
+
+const { title } = Astro.props as HeaderProps;
+---
+
+<header>
+  <Nav />
+  <!-- Hero section with heading, subheading and button -->
+  <div class="px-6 py-20 text-center">
+    <h1
+      class="mb-6 text-5xl font-bold text-high-contrast dark:text-high-contrast-dark"
+    >
+      {title}
+    </h1>
+    <h2
+      class="mb-8 text-3xl font-bold text-high-contrast dark:text-high-contrast-dark"
+    >
+      {conf.description}
+    </h2>
+  </div>
+</header>
